@@ -1,0 +1,24 @@
+# run this token in node
+
+kubeadm join 172.31.23.166:6443 --token xavpj3.hj9qstp25h6tzj95 \
+        --discovery-token-ca-cert-hash sha256:d629f36c53ccd91ab5eb28d21ed3d76d15b47e54b35899599b029d763e786f32
+
+-----------------------------------------
+---------------------------------------------
+#run this command in master
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+#to know about nodes run in master
+
+kubectl get nodes
+
+#to know about kube-system run in master
+
+kubectl get pods -n kube-system
+
+watch kubectl get pods -n kube-system
+
+kubectl get pods -n kube-system
+
+kubectl get nodes	# now it shoud show status=ready, role=control-plane, age and version. it means that master is ready

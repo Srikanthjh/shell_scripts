@@ -1,0 +1,64 @@
+---
+# playbook for installing and running tomcat web server
+# warnings have been disabled
+# context.xml and tomcat-users.xml are confiured by locally downloading tomcat and pushed to remote
+# when running playbook on other machines update paths accordingly
+
+ - name: installing tomcat
+   hosts: deploy
+   gather_facts: true
+   become_user: root
+   become: yes
+
+   vars:
+     default: /home/ec2-user/rajeeva
+     scontext: /home/ec2-user/tomcat_download/apache-tomcat-9.0.64/webapps/manager/META-INF/context.xml
+     dcontext: /home/ec2-user/rajeeva/apache-tomcat-9.0.64/webapps/manager/META-INF/context.xml
+     stomcatusers: /home/ec2-user/tomcat_download/apache-tomcat-9.0.64/conf/tomcat-users.xml
+     dtomcatusers: /home/ec2-user/rajeeva/apache-tomcat-9.0.64/conf/tomcat-users.xml
+
+   tasks:
+     - name: make directory
+       file:
+         path: "{{default}}"
+         state: directory
+
+     - name: updating os packages
+       shell: yum update -y
+       args:
+         warn: false
+
+     - name: installing treee
+       shell: yum install tree -y
+       args:
+         warn: false
+
+     - name: installing java-8
+       yum:
+         name: "{{packages}}"
+       vars:
+         packages:
+         - java-1.8.0-openjdk
+
+     - name: tomcat archive download
+       get_url:
+          url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.64/bin/apache-tomcat-9.0.64.tar.gz
+          dest: "{{default}}"
+
+     - name: untaring archive
+       command: tar -C "{{default}}" -zvxf /home/ec2-user/rajeeva/apache-tomcat-9.0.64.tar.gz
+       args:
+         warn: false
+
+     - name: copying customized contxt.xml for login configuration
+       copy:
+         src: "{{scontext}}"
+         dest: "{{dcontext}}"
+
+     - name: copying customized tomcat-users.xml to configure users data
+       copy:
+         src: "{{stomcatusers}}"
+         dest: "{{dtomcatusers}}"
+
+     - name: starting_tomacat
+       shell: nohup /home/ec2-user/rajeeva/apache-tomcat-9.0.64/bin/startup.sh
