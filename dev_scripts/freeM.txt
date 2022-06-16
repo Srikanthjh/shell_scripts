@@ -1,0 +1,9 @@
+              total        used        free      shared  buff/cache   available
+Mem:           964M        268M        415M        408K        280M        566M
+Swap:            0B          0B          0B
+16K	./cron1_files
+0	./forlog
+68K	.
+16K	./cron1_files
+0	./forlog
+68K	.

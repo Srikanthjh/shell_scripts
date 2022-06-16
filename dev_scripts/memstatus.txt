@@ -1,0 +1,17 @@
+--free memory--
+              total        used        free      shared  buff/cache   available
+Mem:           964M        269M        414M        464K        280M        565M
+Swap:            0B          0B          0B
+--disk usage--
+16K	./cron1_files
+0	./forlog
+72K	.
+--disk free--
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        474M     0  474M   0% /dev
+tmpfs           483M     0  483M   0% /dev/shm
+tmpfs           483M  464K  482M   1% /run
+tmpfs           483M     0  483M   0% /sys/fs/cgroup
+/dev/xvda1      8.0G  2.4G  5.7G  30% /
+tmpfs            97M     0   97M   0% /run/user/1000
+tmpfs            97M     0   97M   0% /run/user/0
