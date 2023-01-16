@@ -1,0 +1,248 @@
+Git 
+--- What is version control system ?
+Used to track history or version of files and directories
+--- Different types of version control system 
+Git 
+svn 
+clearcase 
+TFS 
+CVS 
+amazon code commit 
+bitbucket 
+
+Steps to create git folder --
+Create a folder- mkdir git-repo
+cd git-repo
+ls -al -- check .git is present 
+git init -- if .git is not present you need to initialise git repo 
+if git command not found error then instal git 
+yum install git -y 
+once install do git init and ls -al and check .git folder appears then 
+add some files 
+
+ Git status (used to check whether files are workspace, staging area or in git
+repo
+ Git add test1 (this will move file from workspace to staging area)
+ Git status (it will shows changes to be committed)
+ Git commit –m "message" (this will move files from staging area to git repo)
+ Git status (this will show working directory clean)
+ If It wont work use for 1st time to configure,
+o Git config –global user-email p@gmail.com
+o Git config –global user-name ―p‖
+ Git commit –m ― ―
+ Git status
+ Git log (used to check the repo history)
+ Git log filename (specified filename)
+ Git log -2 (last 2 commits)
+ Git log -2 filename (last 2 commits of the file)
+ Git checkout commitId (used to switch to a previous version , used to switch
+to branch, also to switch to tags)
+ Git checkout master (gives to the latest version)
+
+Tags
+ Tag is a name given to set of versions of files and directories. It indicates
+milestones of a project we can easily remember tags in the future. If I want
+good code in the future we tag it.
+ Command to list tags is,
+o Git tag
+ To create a tag,
+o Git tag tagname (it tags the latest version of code by default)
+Branching
+ Is a parallel development, two teams will work on same peace of code
+on two different branches, later they can integrate the changes by
+merging.
+ Git branch – to list the branches
+ Git branch branchname –to list branchnames
+ If ‗*‘ is on the branch , when I run git branch branchname, branch will
+get created from the branch which has a ‗*‘.
+ To switch to a branchname
+o Git checkout branchname
+ Git merge
+o Is used to integrate two branches
+ Git merge branchname
+ Merging Conflicts
+o Will occur when the same peace of code is changed on 2
+different branches, when we try to merge those two brnaches,
+then merging conflict will occur,
+o To resolve this issue, I don‘t know whose change should I take
+to merge , so I contact developers changes the code, person
+who modified code of branch1 and branch2. Then they will
+decide and tell us whose changes should I take into merge.
+o Then I take that change and I commit it. I get to know who
+modified the code on branch1 and branch2 using git log
+command.
+ to delete branch or tag
+o git branch –d branchname
+o git tag –d tagname
+ used to create branch2 and automatically checkout to that branch
+o git checkout –b branch2
+ how do you create a branch from tag?
+o You need to checkout to that tag and create a branch using git
+
+Assignment : 
+Checkout to master, include 2 files big3.c and fact.c
+o Then create a tag, inside tag create a branch1,inside that create
+palindrome.c then create a tag called release1 then in tat
+include reverse.c then again tag as release 2, then merge it to
+master with a tag name as release2.1.
+o In the master again create a branch2, in tat include even.c and
+prime.c program and create a tag for those and merge it to
+master,then use tag as release 3.1 in master.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Difference between merge and rebase 
+  Merge 
+  -- it will merge latest content of 2 branches 
+  -- simple and easy to understand merging concepts
+  -- maintain original context as source code 
+  
+  Rebase
+  -- it will add the history also 
+  -- unifies the line development by rewriting changes from source branch so that they appear as children
+  -- simplifies your history 
+Git revert --
+-- Used to undo the committed chnages, history will not be removed, we can track the reverted chnages in the git log 
+syntax: git revert Head
+git revert commit id 
+Git reset 
+Used to undo the committed changes but hostory will be removed 
+
+There are 3 types of reset 
+-- soft reset -- it will move the files from git repo to staging area it reset to specified commit if and history will be removed 
+syntax: git reset --soft <commit id > or HEAD
+mixed reset -- It is uded to move files from repo to workspace 
+syntax: git reset --mixed <commit id > or HEAD
+--- hard reset 
+it is used ti reset the previous committed changes there will no clue that you have committed the changes, hard reset will remove files from git repo staging area abd from workspace 
+syntax: git reset --hard <HEAD or commit id >
+
+Note : In interview if they ask difference between and revert and reset then always gives revert and hard reset 
+
+Note :
+There are total 40 digits in the commit id, git copies only 12 digit when we edit something in branches and merge it to a branch it copies only chnages 
+
+git reflog --- it is used to fetch all the log of all the activities and we can fetch deleted branch, tag files from git reflog 
+
+How do you list only merge commit 
+git branch --merged 
+git branch --no --merged 
+Note : Never do rebase on a public branch 
+
+
+Git stash :
+if  am workng on one branch. if i get some crtical work which needs to be fixed on the other branch, i dont want ro commit changes n the other branch then before i switch to the other branch i need to stash on the current branch which store the local files on a temporary location (it will not store in workpace staging area )_ once i am back to the current branch after completing critical work i can bring back the changes using git stash pop 
+
+syntax: to stash -- git stash 
+to bring back --  git stash pop
+to delete stash id -- git stash delete stash id
+git stash -u -- to list the untracked files in stash 
+git stash apply -- to apply the changes in working directory as well as stashing area 
+Q) how do you delete all the stash list 
+
+git stash list -- to list all the stash 
+git stash drop -- to drop all the stash list 
+
+
+
+Git cherry-pick :
+it is used to merge specific commit to a branch 
+it also used to pick a perticular change in a branch 
+syntax: git cherry-pick <commit-id> 
+note : if i want to commit 3 commits use 
+git cherry-pick commitid1 commitid2 commitid3
+
+Git conflit:
+It is same as merge conflict
+Sometime you get merge conflict when merging or pulling froma branch 
+git will then tell you something like conflict (content) merge conflict in a fakefile 
+it also tell you to fix conflict and commit the changes 
+
+git bisect :
+it is used to search to fnd the commit that introduced a bug
+syntax:  git bisect <subcommand> <options> 
+-- This command uses a binary search algorithm to find which commit in your project history introduced a bug 
+-- can be used to find the commit that changed any propertyof your project 
+git bisect start 
+git bisect bad 
+git bisect good 
+git besect reset 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+There are 2 types of repository in git 
+bare repo 
+Non bare repo 
+
+Bare repo
+	-It acts as a central-repo, we can only push and pull the changes
+to the repository.
+	―in base repository, you cant run any git operation on bare repo.
+
+Non bare repo -- its a local repo we can modify the files and push to a central repo we can run all the git commands 
+syntax : to create a non bare repo--  git init 
+bare repo : It acts a central repository we can only push and pull the changes to the repository
+we cannot do any git operations here 
+syntax : git init --bare 
+
+
+git clone : clone is used to bring the remote repository to local workspace for the first time 
+We need to clone it where git repo should not be there or else it will show error 
+syntax: git clone user@serverip:remote repo path 
+
+git push :
+ It is used to push the local repo changes to remote repository
+ git push user@server:path of remote repo
+ 
+ git pull : 
+ Pull will bring the changes from remote repo to and merge to local repo automatically 
+ git pull user@server:path 
+ 
+ git fetch :
+ fetch will bring the changes from remote repo and stores in a separate branch where you can reviw the changes and merge if required 
+ 
+ syntax: git fetch user@server
+ 
+ Note : The branch that fetch  data is stored is FETCH HEAD 
+		Git pull = git fetch + git merge
+ 
+
+
+
+ Any source code execution
+o .c
+o Preprocessing
+o Compilation (.s)
+o Assemebly conversion (.o)
+o Linking and loading
+o Executable files (.exe)
+ Try this
+o Mkdir central_repo
+o Mkdir workspace1 workspace2
+o Cd central_repo
+o Git init --bare
+o Cd ..
+o Cd workspace1
+o Git clone /././central_repo/
+o Cd ../..
+o Vi big3.c
+o Git add and commit
+o Git push /././central_repo/
+o Cd ../..
+o Cd workspace2
+o Git clone /././central_repo/
+o Cd workspace2/central_repo
+o Vi rev.c
+o Git add and commit
+o Git push /././central_repo/
+o Cd ../..
+o Cd workspace1/central_repo
+o Git pull /././central_repo/
+o Vi pali.c
+o Git add and commit
+o Git push /././central_repo/
+o Cd workspace2/central_repo/
+o Git fetch /././central_repo/
+o Git checkout FETCH_HEAD
+o Git checkout master
+o Git merge FETCH_HEAD
+
+-----------------------------------------
